@@ -95,11 +95,14 @@ while True:
         print(f"Dispositivo {name} ({ip}) agregado correctamente.")
 
     elif option == "2":
-        sector_name = input("Ingresa el nombre del sector: ")
-        sector = {"name": sector_name}
-        sectors.append(sector)
-        print(f"Sector {sector_name} agregado correctamente.")
-
+        sector_name = input("Ingrese el nombre del nuevo sector: ")
+        sector_address = input("Ingrese la dirección del nuevo sector: ")
+        sectors.append({
+        'name': sector_name,
+        'address': sector_address
+        })
+        print(f"El sector {sector_name} ha sido agregado.")
+    
     elif option == "3":
         show_devices()
 
