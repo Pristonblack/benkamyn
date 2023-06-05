@@ -1,0 +1,35 @@
+import requests
+
+def get_device_info(device_ip):
+    url = f"http://{device_ip}/api/device_info"  # Reemplaza con la URL de la API adecuada
+    response = requests.get(url)
+    if response.status_code == 200:
+        device_info = response.json()
+        return device_info
+    else:
+        print(f"Error al obtener información del dispositivo {device_ip}. Código de estado: {response.status_code}")
+        return None
+
+devices = [
+    {"ip": "10.10.12.1", "name": "R1"},
+    {"ip": "10.10.18.1", "name": "R18"},
+    {"ip": "10.10.184.2", "name": "R4"},
+    {"ip": "10.10.12.2", "name": "R2"}
+]
+
+document = ""
+
+for device in devices:
+    device_info = get_device_info(device["ip"])
+    if device_info:
+        document += f"Dispositivo: {device['name']}\n"
+        document += f"Direccionamiento IP: {device_info['ip_address']}\n"
+        document += f"Capa jerárquica: {device_info['layer']}\n"
+        document += f"Servicios de red comprometidos: {', '.join(device_info['services'])}\n"
+        document += "\n"
+
+# Guardar el documento en un archivo de texto
+with open("document.txt", "w") as file:
+    file.write(document)
+
+print("Documento generado correctamente.")
